@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Webinar gratuito sobre IA e Liderança — 11 de maio de 2026" />
+  <title>A IA vai substituir líderes ou transformar o jeito de liderar?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1c1c1c;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.13);
+      --text: #f2efe9;
+      --muted: #888;
+      --accent: #c8f135;
+      --accent-dark: #a3c820;
+      --tag-rh-bg: rgba(167,139,250,0.12);
+      --tag-rh: #a78bfa;
+      --tag-ti-bg: rgba(52,211,153,0.12);
+      --tag-ti: #34d399;
+      --warning-bg: rgba(200,241,53,0.07);
+      --warning-border: rgba(200,241,53,0.2);
+      --warning-text: #c8f135;
+      --success-bg: rgba(52,211,153,0.1);
+      --success-text: #34d399;
+      --danger: #f87171;
+      --radius: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* LAYOUT */
+    .wrapper {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+
+    /* LEFT PANEL */
+    .left {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 3.5rem 3rem 3.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 3rem;
+    }
+
+    .logo-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tagline strong { color: var(--text); font-weight: 500; }
+
+    /* META */
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 2.5rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .meta-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .meta-icon svg { width: 14px; height: 14px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* SPEAKERS */
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .speakers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 2rem;
+    }
+
+    .speaker-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .speaker-card:hover { border-color: var(--border2); }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .avatar-rh { background: var(--tag-rh-bg); color: var(--tag-rh); }
+    .avatar-ti { background: var(--tag-ti-bg); color: var(--tag-ti); }
+
+    .speaker-info { flex: 1; }
+    .speaker-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .speaker-org { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    .speaker-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .tag-rh { background: var(--tag-rh-bg); color: var(--tag-rh); }
+    .tag-ti { background: var(--tag-ti-bg); color: var(--tag-ti); }
+
+    /* RIGHT PANEL — FORM */
+    .right {
+      padding: 3.5rem 3.5rem 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .waitlist-notice {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--radius);
+      padding: 0.875rem 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .notice-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--warning-text);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .waitlist-notice p { font-size: 13px; color: var(--warning-text); line-height: 1.6; }
+
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.75rem;
+    }
+
+    .counter-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--surface2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .counter-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    .counter-text { font-size: 12px; color: var(--warning-text); font-weight: 500; white-space: nowrap; }
+
+    /* FORM FIELDS */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-row.full { grid-template-columns: 1fr; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 10px 13px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      color: var(--text);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: #444; }
+
+    .field select option { background: #1c1c1c; }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      background: var(--surface2);
+    }
+
+    .field textarea { resize: none; height: 84px; line-height: 1.6; }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 14px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #0a0a0a;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover { background: var(--accent-dark); }
+    .submit-btn:active:not(:disabled) { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .error-msg { font-size: 13px; color: var(--danger); margin-top: 0.75rem; display: none; }
+
+    .privacy {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* SUCCESS */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--success-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .success h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .success p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 380px; margin: 0 auto; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .left {
+        position: relative;
+        height: auto;
+        padding: 2rem 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .right {
+        padding: 2rem 1.5rem 3rem;
+      }
+
+      .speakers {
+        margin-top: 2rem;
+        padding-top: 2rem;
+      }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      h1 { font-size: 28px; }
+    }
+
+    @media (max-width: 400px) {
+      .left, .right { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- PAINEL ESQUERDO -->
+  <div class="left">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      <span class="logo-text">LeanIA Digital × Maib RH</span>
+    </div>
+
+    <div class="badge">
+      <div class="badge-dot"></div>
+      Webinar gratuito
+    </div>
+
+    <h1>A IA vai substituir líderes ou <em>transformar</em> o jeito de liderar?</h1>
+
+    <p class="tagline">
+      <strong>Vai substituir os que ficarem parados.</strong><br>
+      Venha aprender com quem vive isso na prática: profissionais experientes de RH e Tecnologia que vão mostrar o que muda, o que desenvolver e como dar o próximo passo já na semana seguinte.
+    </p>
+
+    <div class="meta">
+      <div class="meta-item">
+        <div class="meta-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        11 de maio de 2026 — 19h30
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        100% online e gratuito
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        Vagas limitadas
+      </div>
+    </div>
+
+    <div class="speakers">
+      <p class="section-label">Palestrantes</p>
+      <div class="speaker-card">
+        <div class="avatar avatar-rh">MO</div>
+        <div class="speaker-info">
+          <div class="speaker-name">Maib Oliveira</div>
+          <div class="speaker-org">Maib RH</div>
+        </div>
+        <span class="speaker-tag tag-rh">RH</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar avatar-ti">MV</div>
+        <div class="speaker-info">
+          <div class="speaker-name">Marcos Venícios</div>
+          <div class="speaker-org">LeanIA Digital</div>
+        </div>
+        <span class="speaker-tag tag-ti">Tecnologia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL DIREITO — FORMULÁRIO -->
+  <div class="right">
+    <div id="form-view">
+      <div class="form-header">
+        <p class="form-title">Garanta sua vaga</p>
+        <p class="form-subtitle">Preencha os dados abaixo e entre na lista de espera.</p>
+      </div>
+
+      <div class="waitlist-notice">
+        <div class="notice-dot"></div>
+        <p>Este evento tem vagas limitadas. Ao se inscrever, você entra na lista de espera e será notificado por e-mail quando sua vaga for confirmada.</p>
+      </div>
+
+      <div class="counter">
+        <div class="counter-bar"><div class="counter-fill" id="counter-fill"></div></div>
+        <span class="counter-text">73% das vagas preenchidas</span>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Nome completo</label>
+          <input type="text" placeholder="Seu nome" id="f-nome" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" placeholder="seu@email.com" id="f-email" autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>WhatsApp</label>
+          <input type="tel" placeholder="(11) 9 0000-0000" id="f-tel" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nome da empresa" id="f-empresa" autocomplete="organization" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Cargo</label>
+          <input type="text" placeholder="Seu cargo atual" id="f-cargo" autocomplete="organization-title" />
+        </div>
+        <div class="field">
+          <label>Área de atuação</label>
+          <select id="f-area">
+            <option value="">Selecione...</option>
+            <option>Tecnologia</option>
+            <option>Gestão / Liderança</option>
+            <option>RH / Pessoas</option>
+            <option>Marketing</option>
+            <option>Operações</option>
+            <option>Consultoria</option>
+            <option>Outra</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <div class="field">
+          <label>O que você espera deste webinar?</label>
+          <textarea placeholder="Compartilhe sua expectativa ou dúvida principal sobre IA e liderança..." id="f-expectativa"></textarea>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Entrar na lista de espera →</button>
+      <p class="error-msg" id="error-msg">Ocorreu um erro ao enviar. Tente novamente em instantes.</p>
+      <p class="privacy">Seus dados são usados apenas para este evento e não serão compartilhados.</p>
+    </div>
+
+    <div class="success" id="success-view">
+      <div class="success-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M5 14l6 6 12-12" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2>Você está na lista!</h2>
+      <p>Recebemos sua inscrição. Assim que sua vaga for confirmada, você receberá um e-mail com todos os detalhes. Fique de olho na caixa de entrada.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxO11yRf1teZIrUVQlVAo8NBzh0ZIGvPKUkpEYj_qy_nNcGYxNgMDBv1jkcMw5bpo7A/exec';
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('counter-fill').style.width = '73%';
+    }, 300);
+  });
+
+  async function handleSubmit() {
+    const nome = document.getElementById('f-nome').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const errorMsg = document.getElementById('error-msg');
+    const btn = document.getElementById('submit-btn');
+
+    errorMsg.style.display = 'none';
+
+    if (!nome || !email) {
+      alert('Por favor, preencha ao menos o nome e o e-mail.');
+      return;
+    }
+
+    const payload = {
+      nome,
+      email,
+      telefone: document.getElementById('f-tel').value.trim(),
+      empresa: document.getElementById('f-empresa').value.trim(),
+      cargo: document.getElementById('f-cargo').value.trim(),
+      area: document.getElementById('f-area').value,
+      expectativa: document.getElementById('f-expectativa').value.trim()
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById('form-view').style.display = 'none';
+      const successView = document.getElementById('success-view');
+      successView.style.display = 'flex';
+    } catch (err) {
+      errorMsg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Entrar na lista de espera →';
+    }
+  }
+</script>
+</body>
+</html>
